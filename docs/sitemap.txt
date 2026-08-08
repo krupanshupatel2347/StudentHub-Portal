@@ -1,0 +1,21 @@
+StudentHub Portal - Sitemap & Navigation Flow
+==============================================
+Student Name: Krupanshu Patel (25DCS088)
+
+1. Home (Home.html)
+   ├── About Us (About.html)
+   ├── Academic Programs (Courses.html)
+   ├── Admissions (Admission.html)
+   ├── Study Materials (StudyMaterial.html)
+   ├── Class Timetable (Timetable.html)
+   ├── Campus Events (event.html)
+   ├── Frequently Asked Questions (FAQ.html)
+   ├── Support & Helpdesk (Help.html)
+   ├── Student Registration (Signup.html)
+   └── Account Login (Login.html)
+        ├── Student Dashboard / Home
+        └── Admin Dashboard (admin_dashboard.php)
+             ├── Student Management CRUD (students.php)
+             ├── Event Management CRUD (events.php)
+             ├── AJAX Event API Management (index.html)
+             └── System Audit Logs
