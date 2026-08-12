@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Student Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="page-faq">
+    <header class="header">
+        <div class="logo-section">
+            <img src="StudentHub.png" alt="Logo">
+            <h1>Welcome to Student Portal</h1>
+        </div>
+        <button class="menu-button" id="menuButton" aria-label="Toggle navigation">☰</button>
+        <nav class="navbar" id="navbar">
+            <a href="Home.html">Home</a>
+            <a href="Signup.html">Signup</a>
+            <a href="StudyMaterial.html">Study Material</a>
+            <a href="Timetable.html">Timetable</a>
+            <a href="About.html">About Us</a>
+            <a href="Courses.html">Courses</a>
+            <a href="Admission.html">Admission</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="event.html">Events</a>
+            <a href="Help.html">Help</a>
+            <a href="Login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <h1>Frequently Asked Questions</h1>
+        <h2>Common Questions</h2>
+
+        <div class="faq-controls">
+            <input type="text" id="searchInput" placeholder="Search FAQ..." style="width: 280px;">
+            <select id="sortSelect">
+                <option value="default">Sort</option>
+                <option value="az">A-Z</option>
+                <option value="za">Z-A</option>
+            </select>
+        </div>
+
+        <p id="loadingMessage" style="text-align: center; display: none;">Loading FAQs...</p>
+        <p id="errorMessage" style="text-align: center; color: red; display: none;"></p>
+
+        <div id="faqContainer"></div>
+        <div class="pagination" id="pagination"></div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Student Hub | All Rights Reserved | Student: Krupanshu Patel (25DCS088)</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="page-home">
+    <div class="notification" id="notification">
+        <p>New students can register now through the Student Registration Form!</p>
+        <button id="closeNotification" aria-label="Close notification">X</button>
+    </div>
+
+    <header class="header">
+        <div class="logo-section">
+            <img src="StudentHub.png" alt="Student Hub Logo">
+            <h1>Welcome to Student Portal</h1>
+        </div>
+        <button class="menu-button" id="menuButton" aria-label="Toggle navigation">☰</button>
+        <nav class="navbar" id="navbar">
+            <a href="Home.html">Home</a>
+            <a href="Signup.html">Signup</a>
+            <a href="StudyMaterial.html">Study Material</a>
+            <a href="Timetable.html">Timetable</a>
+            <a href="About.html">About Us</a>
+            <a href="Courses.html">Courses</a>
+            <a href="Admission.html">Admission</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="event.html">Events</a>
+            <a href="Help.html">Help</a>
+            <a href="Login.html">Login</a>
+        </nav>
+    </header>
+
+    <div class="theme-control">
+        <button id="themeButton">🌙 Dark Mode</button>
+    </div>
+
+    <main>
+        <div class="content">
+            <img src="Collegecampus.jpg" alt="College Campus">
+            <div class="text">
+                <h2>What is Student Hub?</h2>
+                <p>
+                    <b>Student Hub</b> is an all-in-one online portal designed to simplify students' academic journey by providing quick and convenient access to admissions, course details, class timetables, study materials, examination schedules, academic notices, campus announcements, faculty information, and important university updates. It brings every essential academic service together in one place, making it easier for students to stay organized, informed, and connected throughout their educational journey.
+                </p>
+                <p>
+                    Whether you are a new student applying for admission or an existing student managing your daily academic activities, Student Hub offers a simple, secure, and user-friendly experience. Students can explore available courses, check class schedules, download study resources, receive important notifications, access academic information, and stay updated with campus events from anywhere at any time. Our mission is to create a smart digital learning environment that improves communication, enhances productivity, and supports students in achieving their academic goals with ease.
+                </p>
+                <button id="openModal">View Course Information</button>
+            </div>
+        </div>
+
+        <section class="slider">
+            <div class="slide">
+                <img id="sliderImage" src="Charusat.jpg" alt="CHARUSAT">
+                <h3 id="sliderTitle">CHARUSAT</h3>
+                <p id="sliderText">Welcome to CHARUSAT campus.</p>
+            </div>
+            <div class="slider-buttons">
+                <button id="previousSlide">Previous</button>
+                <button id="nextSlide">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="registrationModal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button id="closeModal" aria-label="Close modal">&times;</button>
+            <h2>Courses</h2>
+            <p>Student Hub provides information about different courses offered by the university.</p>
+            <p>Students can explore course details, duration, eligibility, and academic information.</p>
+            <button id="goToSignup">View Courses</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <h3>Student Hub</h3>
+        <p>Empowering Students Through Technology</p>
+        <p>&copy; 2026 Student Hub. All Rights Reserved. | Student: Krupanshu Patel (25DCS088)</p>
+    </footer>
+</body>
+</html>

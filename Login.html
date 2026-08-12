@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - StudentHub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .access-denied-box {
+            display: none;
+            max-width: 420px;
+            margin: 25px auto;
+            padding: 25px;
+            background: #ffffff;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .access-denied-box h2 {
+            color: #dc2626;
+            margin-bottom: 12px;
+        }
+        .access-denied-box p {
+            color: #444444;
+            margin-bottom: 20px;
+        }
+        .back-login-button {
+            display: inline-block;
+            padding: 11px 22px;
+            background: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .back-login-button:hover {
+            background: #1d4ed8;
+        }
+        .login-error {
+            display: none;
+            color: #dc2626;
+            text-align: center;
+            margin: 15px auto;
+            font-weight: bold;
+        }
+        /* Logout success popup */
+        .logout-popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .logout-popup {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .logout-popup h2 {
+            color: #16a34a;
+            margin-top: 0;
+        }
+        .logout-popup p {
+            color: #444444;
+            margin-bottom: 22px;
+        }
+        .logout-ok-button {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .logout-ok-button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="page-login">
+    <header class="header">
+        <div class="logo-section">
+            <img src="StudentHub.png" alt="Logo">
+            <h1>Welcome to Student Portal</h1>
+        </div>
+        <button class="menu-button" id="menuButton" aria-label="Toggle navigation">☰</button>
+        <nav class="navbar" id="navbar">
+            <a href="Home.html">Home</a>
+            <a href="Signup.html">Signup</a>
+            <a href="event.html">Events</a>
+            <a href="Timetable.html">Timetable</a>
+            <a href="About.html">About Us</a>
+            <a href="Courses.html">Courses</a>
+            <a href="Admission.html">Admission</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="Help.html">Help</a>
+        </nav>
+    </header>
+
+    <h2 class="login-title">Student / Admin Login</h2>
+
+    <!-- Access Denied Message -->
+    <div class="access-denied-box" id="accessDeniedBox">
+        <h2>Access Denied!</h2>
+        <p>The selected role does not match your account. Please select the correct role and try again.</p>
+        <a href="Login.html" class="back-login-button">Back to Login</a>
+    </div>
+
+    <!-- Other Login Errors -->
+    <p class="login-error" id="loginError">Invalid email, password, or selected role. Please try again.</p>
+
+    <form class="form-box" id="loginForm" action="process.php" method="POST">
+        <p><b>Login As</b></p>
+        <select id="loginRole" name="role" required>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+        </select>
+        <br><br>
+
+        <p><b>Email</b></p>
+        <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+        <small id="loginEmailError" class="error-message"></small>
+        <br><br>
+
+        <p><b>Password</b></p>
+        <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+        <small id="loginPasswordError" class="error-message"></small>
+        <br><br>
+
+        <input type="checkbox" id="rememberMe" name="rememberMe" value="yes">
+        <span>Remember Me</span>
+        <a href="#" class="forgot" onclick="alert('Password reset instructions sent to registered email.');">Forgot Password?</a>
+        <br><br>
+
+        <input type="submit" value="Login" class="login-button">
+        <p class="login-signup">Don't have an account? <a href="Signup.html" class="signup-link">Sign Up</a></p>
+    </form>
+
+    <!-- Logout Success Popup -->
+    <div class="logout-popup-overlay" id="logoutPopup">
+        <div class="logout-popup" role="dialog" aria-modal="true" aria-labelledby="logoutTitle">
+            <h2 id="logoutTitle">Logged Out Successfully!</h2>
+            <p>You have been logged out of your account.</p>
+            <button type="button" class="logout-ok-button" id="logoutOkButton">OK</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Student Hub | All Rights Reserved | Student: Krupanshu Patel (25DCS088)</p>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get("error");
+        const logoutStatus = params.get("logout");
+
+        // Show Access Denied when role does not match
+        if (error === "access_denied") {
+            document.getElementById("accessDeniedBox").style.display = "block";
+            document.getElementById("loginForm").style.display = "none";
+            document.querySelector(".login-title").style.display = "none";
+        } else if (error === "invalid" || error === "empty") {
+            document.getElementById("loginError").style.display = "block";
+        }
+
+        // Show logout success popup
+        if (logoutStatus === "success") {
+            document.getElementById("logoutPopup").style.display = "flex";
+        }
+
+        // Close popup and clean URL
+        document.getElementById("logoutOkButton").addEventListener("click", function () {
+            document.getElementById("logoutPopup").style.display = "none";
+            window.history.replaceState({}, document.title, window.location.pathname);
+        });
+    </script>
+</body>
+</html>
