@@ -1,0 +1,77 @@
+[
+    {
+        "id": 1,
+        "question": "How do I apply for admission?",
+        "answer": "Visit the Admission page and complete the online application form."
+    },
+    {
+        "id": 2,
+        "question": "Where can I find my timetable?",
+        "answer": "Open the Timetable page from the navigation menu."
+    },
+    {
+        "id": 3,
+        "question": "How can I download study materials?",
+        "answer": "Visit the Study Material page to access notes, PDFs, presentations, and other learning resources."
+    },
+    {
+        "id": 4,
+        "question": "How do I contact support?",
+        "answer": "Go to the Help page for email and phone support details."
+    },
+    {
+        "id": 5,
+        "question": "Can I check exam schedules online?",
+        "answer": "Yes. Examination schedules are available in the Timetable section."
+    },
+    {
+        "id": 6,
+        "question": "What courses are available?",
+        "answer": "Visit the Courses page to view the available courses and their details."
+    },
+    {
+        "id": 7,
+        "question": "How can I register as a student?",
+        "answer": "Open the Signup page and fill in the required registration details."
+    },
+    {
+        "id": 8,
+        "question": "Where can I find previous year question papers?",
+        "answer": "Previous year question papers are available in the Study Material section."
+    },
+    {
+        "id": 9,
+        "question": "How can I get course information?",
+        "answer": "Visit the Courses page to get information about different courses."
+    },
+    {
+        "id": 10,
+        "question": "Where can I find learning resources?",
+        "answer": "Open the Study Material page to access learning resources."
+    },
+    {
+        "id": 11,
+        "question": "How can I contact the college?",
+        "answer": "Visit the Help page to find the available contact information."
+    },
+    {
+        "id": 12,
+        "question": "Where can I find admission information?",
+        "answer": "Open the Admission page for admission requirements and application information."
+    },
+    {
+        "id": 13,
+        "question": "Can I access study material online?",
+        "answer": "Yes. Students can access study materials through the Study Material page."
+    },
+    {
+        "id": 14,
+        "question": "Where can I learn about Student Hub?",
+        "answer": "Visit the About Us page to learn more about Student Hub."
+    },
+    {
+        "id": 15,
+        "question": "Where can I find help for using the portal?",
+        "answer": "Open the Help page for assistance and support information."
+    }
+]

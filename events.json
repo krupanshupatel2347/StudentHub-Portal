@@ -1,0 +1,110 @@
+[
+    {
+        "id": 1,
+        "name": "CHARUSAT Tech Fest 2026",
+        "category": "Technical",
+        "date": "2026-10-05",
+        "time": "10:00 AM",
+        "venue": "CHARUSAT Main Auditorium",
+        "description": "A technical festival featuring coding, robotics, project exhibitions and technical competitions."
+    },
+    {
+        "id": 2,
+        "name": "Annual Sports Meet 2026",
+        "category": "Sports",
+        "date": "2026-10-10",
+        "time": "8:00 AM",
+        "venue": "CHARUSAT Sports Ground",
+        "description": "Annual sports event including cricket, football, volleyball, badminton and athletics."
+    },
+    {
+        "id": 3,
+        "name": "Navratri Celebration",
+        "category": "Cultural",
+        "date": "2026-10-18",
+        "time": "7:00 PM",
+        "venue": "CHARUSAT Campus Ground",
+        "description": "A cultural celebration with traditional Garba, music and performances by students."
+    },
+    {
+        "id": 4,
+        "name": "Campus Placement Drive",
+        "category": "Placement",
+        "date": "2026-10-22",
+        "time": "9:00 AM",
+        "venue": "Placement Cell",
+        "description": "Campus recruitment drive with leading companies offering internship and placement opportunities."
+    },
+    {
+        "id": 5,
+        "name": "Mid-Semester Academic Seminar",
+        "category": "Academic",
+        "date": "2026-10-25",
+        "time": "11:00 AM",
+        "venue": "Seminar Hall",
+        "description": "An academic seminar designed to help students improve their technical and professional knowledge."
+    },
+    {
+        "id": 6,
+        "name": "Web Development Workshop",
+        "category": "Workshop",
+        "date": "2026-11-02",
+        "time": "10:00 AM",
+        "venue": "Computer Lab",
+        "description": "Hands-on workshop covering HTML, CSS, JavaScript and modern web development techniques."
+    },
+    {
+        "id": 7,
+        "name": "National Student Conference",
+        "category": "Conference",
+        "date": "2026-11-08",
+        "time": "9:30 AM",
+        "venue": "CHARUSAT Conference Hall",
+        "description": "A student conference featuring expert talks, research presentations and technical discussions."
+    },
+    {
+        "id": 8,
+        "name": "Inter-College Coding Competition",
+        "category": "Competition",
+        "date": "2026-11-15",
+        "time": "10:00 AM",
+        "venue": "Computer Engineering Department",
+        "description": "Competitive programming event where students solve programming and algorithmic challenges."
+    },
+    {
+        "id": 9,
+        "name": "AI and Machine Learning Workshop",
+        "category": "Workshop",
+        "date": "2026-11-20",
+        "time": "10:00 AM",
+        "venue": "AI Lab",
+        "description": "Learn the fundamentals of Artificial Intelligence and Machine Learning through practical sessions."
+    },
+    {
+        "id": 10,
+        "name": "Student Project Exhibition",
+        "category": "Technical",
+        "date": "2026-11-28",
+        "time": "9:00 AM",
+        "venue": "CHARUSAT Exhibition Hall",
+        "description": "Students showcase innovative software, hardware and research projects."
+    },
+    {
+        "id": 11,
+        "name": "Career Guidance Seminar",
+        "category": "Placement",
+        "date": "2026-12-03",
+        "time": "2:00 PM",
+        "venue": "Seminar Hall",
+        "description": "Career experts provide guidance about placements, internships, resumes and interview preparation."
+    },
+    {
+        "id": 12,
+        "name": "Annual Cultural Festival",
+        "category": "Cultural",
+        "date": "2026-12-10",
+        "time": "6:00 PM",
+        "venue": "CHARUSAT Main Ground",
+        "description": "Annual cultural festival featuring dance, music, drama and student performances."
+    }
+]

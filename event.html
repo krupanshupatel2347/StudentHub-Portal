@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Student Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="page-events">
+    <header class="header">
+        <div class="logo-section">
+            <img src="StudentHub.png" alt="Student Hub Logo">
+            <h1>Welcome to Student Portal</h1>
+        </div>
+        <button class="menu-button" id="menuButton" aria-label="Toggle navigation">☰</button>
+        <nav class="navbar" id="navbar">
+            <a href="Home.html">Home</a>
+            <a href="Signup.html">Signup</a>
+            <a href="StudyMaterial.html">Study Material</a>
+            <a href="Timetable.html">Timetable</a>
+            <a href="About.html">About Us</a>
+            <a href="Courses.html">Courses</a>
+            <a href="Admission.html">Admission</a>
+            <a href="FAQ.html">FAQ</a>
+            <a href="event.html">Events</a>
+            <a href="Help.html">Help</a>
+            <a href="Login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <div class="heading" style="text-align: center; margin-bottom: 20px;">
+            <h1 style="color: #2563eb;">CHARUSAT Events</h1>
+            <p style="color: #64748b;">Stay updated with upcoming academic, cultural and technical events at CHARUSAT.</p>
+        </div>
+
+        <div class="event-controls">
+            <input type="text" id="eventSearch" placeholder="Search events..." style="width: 280px;">
+            <select id="eventCategory">
+                <option value="all">All Categories</option>
+                <option value="Technical">Technical</option>
+                <option value="Sports">Sports</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Placement">Placement</option>
+                <option value="Academic">Academic</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Conference">Conference</option>
+                <option value="Competition">Competition</option>
+            </select>
+            <select id="eventSort">
+                <option value="default">Sort By</option>
+                <option value="nameAsc">Name (A-Z)</option>
+                <option value="nameDesc">Name (Z-A)</option>
+                <option value="dateAsc">Date (Oldest First)</option>
+                <option value="dateDesc">Date (Newest First)</option>
+            </select>
+        </div>
+
+        <p id="eventLoading" style="text-align: center; display: none;">Loading events...</p>
+        <p id="eventError" style="text-align: center; color: red; display: none;"></p>
+
+        <div class="event-container" id="eventsContainer"></div>
+
+        <div class="event-pagination" id="eventPagination"></div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Student Hub | All Rights Reserved | Student: Krupanshu Patel (25DCS088)</p>
+    </footer>
+</body>
+</html>

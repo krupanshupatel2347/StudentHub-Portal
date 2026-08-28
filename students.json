@@ -1,0 +1,17 @@
+[
+    {"id": 1, "name": "Krupanshu Patel", "email": "krupanshupatel2347@gmail.com", "course": "B.Tech CSE", "year": 2},
+    {"id": 2, "name": "Rahul Patel", "email": "rahul@example.com", "course": "B.Tech IT", "year": 2},
+    {"id": 3, "name": "Priya Shah", "email": "priya@example.com", "course": "B.Tech CSE", "year": 3},
+    {"id": 4, "name": "Aakash Mehta", "email": "aakash@example.com", "course": "BCA", "year": 1},
+    {"id": 5, "name": "Sneha Joshi", "email": "sneha@example.com", "course": "B.Tech CE", "year": 2},
+    {"id": 6, "name": "Deep Varma", "email": "deep@example.com", "course": "MCA", "year": 1},
+    {"id": 7, "name": "Bhavin Desai", "email": "bhavin@example.com", "course": "B.Tech IT", "year": 4},
+    {"id": 8, "name": "Dhara Pandya", "email": "dhara@example.com", "course": "B.Tech CSE", "year": 2},
+    {"id": 9, "name": "Karan Prajapati", "email": "karan@example.com", "course": "B.Tech AIML", "year": 2},
+    {"id": 10, "name": "Anjali Trivedi", "email": "anjali@example.com", "course": "BCA", "year": 2},
+    {"id": 11, "name": "Vikas Soni", "email": "vikas@example.com", "course": "B.Tech EC", "year": 3},
+    {"id": 12, "name": "Meera Bhatt", "email": "meera@example.com", "course": "MCA", "year": 2},
+    {"id": 13, "name": "Rohan Parmar", "email": "rohan@example.com", "course": "B.Tech Mechanical", "year": 3},
+    {"id": 14, "name": "Kavita Dave", "email": "kavita@example.com", "course": "B.Tech CSE", "year": 1},
+    {"id": 15, "name": "Harshil Raval", "email": "harshil@example.com", "course": "B.Tech IT", "year": 2}
+]
