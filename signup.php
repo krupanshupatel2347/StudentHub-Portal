@@ -167,3 +167,5 @@ try {
     exit();
 }
 ?>
+
+<!-- Practical 9: Database persistence with MySQLi -->
