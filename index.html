@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical 13 - Event Management AJAX CRUD</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 30px; font-family: Arial, sans-serif; background: #f1f5f9; color: #1e293b; }
+        .container { max-width: 1200px; margin: auto; }
+        h1 { text-align: center; color: #2563eb; }
+        .subtitle { text-align: center; margin-bottom: 25px; color: #64748b; }
+        .card { background: white; padding: 24px; margin-bottom: 24px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        .status { margin-bottom: 18px; padding: 12px; background: #dbeafe; border-radius: 6px; overflow-wrap: anywhere; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.success { background: #dcfce7; color: #166534; }
+        form { display: grid; gap: 10px; }
+        label { font-weight: bold; margin-top: 5px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font: inherit; }
+        textarea { min-height: 90px; resize: vertical; }
+        button { padding: 10px 16px; border: none; border-radius: 6px; background: #2563eb; color: white; cursor: pointer; font: inherit; font-weight: bold; }
+        button:hover { background: #1d4ed8; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+        .secondary { background: #64748b; }
+        .secondary:hover { background: #475569; }
+        .edit-btn { background: #0d9488; margin-right: 5px; }
+        .edit-btn:hover { background: #0f766e; }
+        .delete-btn { background: #dc2626; }
+        .delete-btn:hover { background: #b91c1c; }
+        .table-wrapper { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 13px; border-bottom: 1px solid #e2e8f0; text-align: left; vertical-align: top; }
+        th { background: #2563eb; color: white; }
+        td { overflow-wrap: anywhere; }
+        .empty { text-align: center; padding: 25px; color: #64748b; }
+        .search-box { display: flex; gap: 10px; margin-top: 15px; }
+        .search-box input { flex: 1; min-width: 0; }
+        .form-title { margin-top: 0; }
+        .hidden { display: none; }
+        @media (max-width: 650px) {
+            body { padding: 12px; }
+            .card { padding: 15px; }
+            .search-box { flex-direction: column; }
+            th, td { padding: 9px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Event Management System</h1>
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="admin_dashboard.php" style="display: inline-block; background: #2563eb; color: white; padding: 12px 22px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                &larr; Back to Admin Dashboard
+            </a>
+        </div>
+        <p class="subtitle">PHP JSON API and Fetch-Based Asynchronous CRUD</p>
+
+        <div id="status" class="status" role="status" aria-live="polite">Loading events...</div>
+
+        <div class="card">
+            <h2 class="form-title" id="formTitle">Add New Event</h2>
+            <form id="eventForm">
+                <input type="hidden" id="eventId">
+
+                <label for="eventName">Event Name *</label>
+                <input type="text" id="eventName" required maxlength="200">
+
+                <label for="eventDate">Event Date *</label>
+                <input type="date" id="eventDate" required>
+
+                <label for="eventTime">Event Time</label>
+                <input type="time" id="eventTime">
+
+                <label for="eventVenue">Event Venue *</label>
+                <input type="text" id="eventVenue" required maxlength="200">
+
+                <label for="eventDescription">Event Description</label>
+                <textarea id="eventDescription"></textarea>
+
+                <div class="btn-row">
+                    <button type="submit" id="saveButton">Add Event</button>
+                    <button type="button" id="cancelButton" class="secondary hidden">Cancel Edit</button>
+                    <button type="reset" id="clearButton" class="secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Event Records</h2>
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Search by event name or venue">
+                <button type="button" id="refreshButton">Refresh Events</button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Venue</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventTable">
+                        <tr>
+                            <td colspan="7" class="empty">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "api.php";
+        const statusBox = document.getElementById("status");
+        const eventTable = document.getElementById("eventTable");
+        const eventForm = document.getElementById("eventForm");
+        const saveButton = document.getElementById("saveButton");
+        const cancelButton = document.getElementById("cancelButton");
+        const searchInput = document.getElementById("searchInput");
+        let eventsList = [];
+
+        function showStatus(message, type = "") {
+            statusBox.textContent = message;
+            statusBox.className = "status";
+            if (type) statusBox.classList.add(type);
+        }
+
+        async function apiRequest(url, options = {}) {
+            const response = await fetch(url, {
+                ...options,
+                headers: {
+                    "Accept": "application/json",
+                    ...(options.body ? { "Content-Type": "application/json" } : {}),
+                    ...(options.headers || {})
+                }
+            });
+            let result;
+            try {
+                result = await response.json();
+            } catch {
+                throw new Error("Invalid response from the PHP API.");
+            }
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Request failed.");
+            }
+            return result;
+        }
+
+        function getVenue(event) {
+            return event.event_venue || event.venue || "";
+        }
+
+        function renderEvents() {
+            eventTable.replaceChildren();
+            const keyword = searchInput.value.trim().toLowerCase();
+            const filteredEvents = eventsList.filter(function (event) {
+                return (
+                    String(event.event_name || "").toLowerCase().includes(keyword) ||
+                    String(getVenue(event)).toLowerCase().includes(keyword)
+                );
+            });
+
+            if (filteredEvents.length === 0) {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+                cell.colSpan = 7;
+                cell.className = "empty";
+                cell.textContent = keyword ? "No matching events found." : "No events available.";
+                row.appendChild(cell);
+                eventTable.appendChild(row);
+                return;
+            }
+
+            filteredEvents.forEach(function (event) {
+                const row = document.createElement("tr");
+                const values = [
+                    event.event_id,
+                    event.event_name,
+                    event.event_date,
+                    event.event_time || "",
+                    getVenue(event),
+                    event.event_description || ""
+                ];
+
+                values.forEach(function (value) {
+                    const cell = document.createElement("td");
+                    cell.textContent = value ?? "";
+                    row.appendChild(cell);
+                });
+
+                const actionCell = document.createElement("td");
+                const editButton = document.createElement("button");
+                editButton.type = "button";
+                editButton.textContent = "Edit";
+                editButton.className = "edit-btn";
+                editButton.addEventListener("click", function () {
+                    editEvent(event);
+                });
+
+                const deleteButton = document.createElement("button");
+                deleteButton.type = "button";
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete-btn";
+                deleteButton.addEventListener("click", function () {
+                    deleteEvent(event.event_id, event.event_name);
+                });
+
+                actionCell.appendChild(editButton);
+                actionCell.appendChild(deleteButton);
+                row.appendChild(actionCell);
+                eventTable.appendChild(row);
+            });
+        }
+
+        async function loadEvents(showMessage = true) {
+            try {
+                if (showMessage) showStatus("Loading events...");
+                const result = await apiRequest(API_URL);
+                eventsList = Array.isArray(result.data) ? result.data : [];
+                renderEvents();
+                if (showMessage) showStatus("Events loaded successfully.", "success");
+            } catch (error) {
+                showStatus("Error loading events: " + error.message, "error");
+                eventTable.replaceChildren();
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+                cell.colSpan = 7;
+                cell.className = "empty";
+                cell.textContent = "Unable to load events.";
+                row.appendChild(cell);
+                eventTable.appendChild(row);
+            }
+        }
+
+        function resetEventForm() {
+            eventForm.reset();
+            document.getElementById("eventId").value = "";
+            document.getElementById("formTitle").textContent = "Add New Event";
+            saveButton.textContent = "Add Event";
+            cancelButton.classList.add("hidden");
+        }
+
+        function editEvent(event) {
+            document.getElementById("eventId").value = event.event_id;
+            document.getElementById("eventName").value = event.event_name || "";
+            document.getElementById("eventDate").value = String(event.event_date || "").substring(0, 10);
+            document.getElementById("eventTime").value = String(event.event_time || "").substring(0, 5);
+            document.getElementById("eventVenue").value = getVenue(event);
+            document.getElementById("eventDescription").value = event.event_description || "";
+            document.getElementById("formTitle").textContent = "Edit Event #" + event.event_id;
+            saveButton.textContent = "Update Event";
+            cancelButton.classList.remove("hidden");
+            document.getElementById("formTitle").scrollIntoView({ behavior: "smooth", block: "center" });
+            showStatus("Editing event: " + event.event_name);
+        }
+
+        eventForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const eventId = document.getElementById("eventId").value;
+            const eventData = {
+                event_name: document.getElementById("eventName").value.trim(),
+                event_date: document.getElementById("eventDate").value,
+                event_time: document.getElementById("eventTime").value,
+                event_venue: document.getElementById("eventVenue").value.trim(),
+                event_description: document.getElementById("eventDescription").value.trim()
+            };
+
+            if (!eventData.event_name || !eventData.event_date || !eventData.event_venue) {
+                showStatus("Please fill in all required fields.", "error");
+                return;
+            }
+
+            saveButton.disabled = true;
+            saveButton.textContent = eventId ? "Updating..." : "Adding...";
+
+            try {
+                const result = await apiRequest(API_URL, {
+                    method: eventId ? "PUT" : "POST",
+                    body: JSON.stringify(eventId ? { ...eventData, event_id: Number(eventId) } : eventData)
+                });
+                resetEventForm();
+                await loadEvents(false);
+                showStatus(result.message || (eventId ? "Event updated successfully." : "Event added successfully."), "success");
+            } catch (error) {
+                showStatus("Error: " + error.message, "error");
+            } finally {
+                saveButton.disabled = false;
+                saveButton.textContent = document.getElementById("eventId").value ? "Update Event" : "Add Event";
+            }
+        });
+
+        async function deleteEvent(eventId, eventName) {
+            if (!confirm('Are you sure you want to delete "' + eventName + '"?')) return;
+            try {
+                const result = await apiRequest(API_URL + "?id=" + encodeURIComponent(eventId), { method: "DELETE" });
+                eventsList = eventsList.filter(ev => Number(ev.event_id) !== Number(eventId));
+                renderEvents();
+                showStatus(result.message || "Event deleted successfully.", "success");
+            } catch (error) {
+                showStatus("Error deleting event: " + error.message, "error");
+            }
+        }
+
+        cancelButton.addEventListener("click", function () {
+            resetEventForm();
+            showStatus("Edit cancelled.");
+        });
+
+        document.getElementById("clearButton").addEventListener("click", function () {
+            setTimeout(function () {
+                if (document.getElementById("eventId").value) resetEventForm();
+            }, 0);
+        });
+
+        document.getElementById("refreshButton").addEventListener("click", () => loadEvents());
+        searchInput.addEventListener("input", renderEvents);
+
+        loadEvents();
+    </script>
+</body>
+</html>
